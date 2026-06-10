@@ -1,73 +1,224 @@
-# React + TypeScript + Vite
+# HCIS Talent Mapping System
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Desktop-based Human Capital Information System (HCIS) for employee talent mapping, career planning, and workforce development management.
 
-Currently, two official plugins are available:
+Built with **Tauri**, **React**, **TypeScript**, and **Supabase**.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+## Overview
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+HCIS Talent Mapping System is an internal HR application designed to simplify employee data management, talent mapping, career planning, leadership program tracking, KPI evaluation, and reporting.
 
-## Expanding the ESLint configuration
+The system is developed as a desktop application to provide a simple deployment process without requiring a dedicated hosting server.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+---
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Features
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+### Employee Management
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+* Employee profile management
+* Employment information management
+* Education history
+* Grade history
+* Rank history
+* Branch history
+
+### Talent Mapping
+
+* Employee strengths assessment
+* Employee weaknesses assessment
+* Talent interest tracking
+* Achievement records
+* Development recommendations
+
+### Career Planning
+
+* Branch career planning
+* Department career planning
+* Career preference prioritization
+
+### KPI Management
+
+* Annual KPI records
+* Performance tracking
+* Historical KPI data
+
+### Leadership Development
+
+* BLDP management
+* ILDP management
+* ALDP management
+* Leadership program history
+
+### Document Management
+
+* Employee document storage
+* Document download
+* Document tracking
+
+### Reporting
+
+* Talent Mapping Report
+* Employee Data Report
+* Excel Export
+
+### Backup System
+
+* JSON Backup
+* JSON Restore
+* Data Recovery Support
+
+---
+
+## Tech Stack
+
+### Frontend
+
+* React
+* TypeScript
+* Vite
+* React Router
+* React Query
+* React Hook Form
+* Zod
+
+### UI
+
+* Tailwind CSS
+* shadcn/ui
+* Lucide Icons
+
+### Desktop
+
+* Tauri
+* Rust
+
+### Backend & Database
+
+* Supabase
+* PostgreSQL
+
+### Export & Backup
+
+* ExcelJS
+* JSON Backup
+
+---
+
+## Project Structure
+
+```text
+src/
+│
+├── app/
+├── routes/
+├── layouts/
+├── pages/
+│
+├── components/
+│
+├── features/
+│   ├── employees/
+│   ├── branches/
+│   ├── departments/
+│   ├── positions/
+│   ├── grades/
+│   ├── ranks/
+│   ├── leadership-programs/
+│   └── reports/
+│
+├── services/
+│   ├── export/
+│   └── backup/
+│
+├── hooks/
+├── schemas/
+├── constants/
+├── types/
+├── utils/
+└── lib/
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## Development Setup
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### Requirements
+
+* Node.js 22+
+* npm 10+
+* Rust Stable
+* Tauri v2
+* Supabase Project
+
+### Clone Repository
+
+```bash
+git clone https://github.com/your-username/hcis-talent-mapping.git
+
+cd hcis-talent-mapping
 ```
+
+### Install Dependencies
+
+```bash
+npm install
+```
+
+### Environment Variables
+
+Create `.env` file:
+
+```env
+VITE_SUPABASE_URL=
+VITE_SUPABASE_ANON_KEY=
+
+DATABASE_URL=
+```
+
+---
+
+### Run Development
+
+```bash
+npm run tauri dev
+```
+
+---
+
+### Build Application
+
+```bash
+npm run tauri build
+```
+
+---
+
+## Database
+
+Database design is documented in:
+
+```text
+docs/
+├── erd.md
+├── schema-prisma-v1.md
+├── seed-master-data.md
+```
+
+Main entities:
+
+* Employee
+* Branch
+* Department
+* Position
+* Grade
+* Rank
+* Leadership Program
+* KPI
+* Career Plan
+* Talent Mapping
+* Employee Documents
+
+---
