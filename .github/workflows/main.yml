@@ -1,5 +1,4 @@
 name: Build Tauri App
-
 on:
   push:
     branches:
@@ -8,7 +7,8 @@ on:
 jobs:
   build:
     runs-on: windows-latest
-
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true  # Opt into Node.js 24 now
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
