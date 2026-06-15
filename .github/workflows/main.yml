@@ -8,9 +8,6 @@ on:
 jobs:
   build:
     runs-on: windows-latest
-    # Menghindari peringatan Node.js 20 dengan memaksa penggunaan Node 24 jika tersedia
-    env:
-      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -18,7 +15,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20 # GitHub akan otomatis menangani ini dengan environment variable di atas
+          node-version: 20.19.6
 
       - name: Setup Rust
         uses: dtolnay/rust-toolchain@stable
@@ -32,8 +29,14 @@ jobs:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
 
-      - name: Upload Artifact
+      - name: Upload Artifact (MSI - .msi)
         uses: actions/upload-artifact@v4
         with:
-          name: windows-installer
-          path: src-tauri/target/release/bundle/msi/
+          name: windows-installer-msi
+          path: src-tauri/target/release/bundle/msi
+
+      - name: Upload Artifact (NSIS - .exe)
+        uses: actions/upload-artifact@v4
+        with:
+          name: windows-installer-nsis-exe
+          path: src-tauri/target/release/bundle/nsis
