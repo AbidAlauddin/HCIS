@@ -8,8 +8,7 @@ on:
 jobs:
   build:
     runs-on: windows-latest
-    env:
-      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -17,7 +16,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20.19.6
+          node-version: 22
 
       - name: Setup Rust
         uses: dtolnay/rust-toolchain@stable
@@ -31,14 +30,14 @@ jobs:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
 
-      - name: Upload Artifact (MSI - .msi)
+      - name: Upload NSIS (.exe)
         uses: actions/upload-artifact@v4
         with:
-          name: windows-installer-msi
-          path: src-tauri/target/release/bundle/msi
+          name: tauri-windows-exe
+          path: src-tauri/target/release/bundle/nsis/**/*.exe
 
-      - name: Upload Artifact (NSIS - .exe)
+      - name: Upload MSI
         uses: actions/upload-artifact@v4
         with:
-          name: windows-installer-nsis-exe
-          path: src-tauri/target/release/bundle/nsis
+          name: tauri-windows-msi
+          path: src-tauri/target/release/bundle/msi/**/*.msi
