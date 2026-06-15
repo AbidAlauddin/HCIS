@@ -8,7 +8,7 @@ jobs:
   build:
     runs-on: windows-latest
     env:
-      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true  # Opt into Node.js 24 now
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -21,14 +21,22 @@ jobs:
       - name: Setup Rust
         uses: dtolnay/rust-toolchain@stable
 
+      - name: Install Tauri CLI
+        run: npm install -g @tauri-apps/cli
+
       - name: Install dependencies
         run: npm install
 
+      - name: Check Tauri config
+        run: cat src-tauri/tauri.conf.json
+        shell: bash
+
       - name: Build Tauri App
-        run: npm run tauri build
+        run: npm run tauri build -- --verbose
         env:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
+          RUST_BACKTRACE: 1
 
       - name: Upload NSIS (.exe)
         uses: actions/upload-artifact@v4
