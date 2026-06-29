@@ -52,18 +52,6 @@ const GEN_COLORS: Record<string, string> = {
   "Silent Generation": "#d4d4d4",
 };
 
-const MOCK_BRANCH = [
-  { name: "Tegal", karyawan: 28 },
-  { name: "Semarang", karyawan: 42 },
-];
-
-const MOCK_GRADE = [
-  { name: "1", label: "Grade 1", karyawan: 18 },
-  { name: "2", label: "Grade 2", karyawan: 34 },
-  { name: "3", label: "Grade 3", karyawan: 41 },
-  { name: "4", label: "Grade 4", karyawan: 22 },
-  { name: "5", label: "Grade 5", karyawan: 10 },
-];
 
 // ─── Design Tokens ────────────────────────────────────────────────────────────
 const T = {
