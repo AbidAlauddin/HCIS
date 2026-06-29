@@ -159,6 +159,14 @@ function GenderDonut({ laki, perempuan }: { laki: number; perempuan: number }) {
 
 function BranchCompact({ data }: { data: { name: string; karyawan: number }[] }) {
   const total = data.reduce((s, d) => s + d.karyawan, 0);
+  if (data.length === 0) {
+    return (
+      <p style={{ fontSize: 13, color: T.muted, textAlign: "center", width: "100%" }}>
+        Data karyawan per cabang tidak tersedia.
+      </p>
+    );
+  }
+
   return (
     <div style={{ display: "flex", gap: 12, width: "100%" }}>
       {data.map((d, i) => {
@@ -319,7 +327,10 @@ export default function DashboardPage() {
         acc[branch] = (acc[branch] ?? 0) + 1;
         return acc;
       }, {});
-      const branchRows = Object.entries(branchCounts).map(([name, karyawan]) => ({ name, karyawan }));
+      const branchRows = Object.entries(branchCounts)
+        .map(([name, karyawan]) => ({ name, karyawan }))
+        .sort((a, b) => b.karyawan - a.karyawan)
+        .slice(0, 2);
 
       const gradeCounts = employees.reduce<Record<string, number>>((acc, emp) => {
         const g = (emp as any).grade ?? (emp as any).golongan ?? null;
@@ -704,7 +715,7 @@ export default function DashboardPage() {
                   <SectionLabel>Distribusi Grade</SectionLabel>
                   <div style={{ flex: 1, display: "flex", alignItems: "flex-end", width: "100%", minHeight: 240, marginTop: 10 }}>
                     <ResponsiveContainer width="100%" height="100%">
-                      <BarChart data={gradeData.length ? gradeData : MOCK_GRADE} barSize={26} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
+                      <BarChart data={gradeData} barSize={26} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
                         <XAxis dataKey="name" tick={{ fontSize: 11, fill: T.faint, fontWeight: 500 }} axisLine={false} tickLine={false} tickFormatter={(v) => `G${v}`} />
                         <YAxis tick={{ fontSize: 11, fill: T.faint, fontWeight: 500 }} axisLine={false} tickLine={false} width={35} />
                         <Tooltip content={<CustomTooltip />} cursor={{ fill: T.accentLight }} />
@@ -720,7 +731,7 @@ export default function DashboardPage() {
                 <Card style={{ height: "100%", justifyContent: "space-between" }}>
                   <SectionLabel>Karyawan per Cabang</SectionLabel>
                   <div style={{ flex: 1, display: "flex", alignItems: "center" }}>
-                    <BranchCompact data={branchData.length ? branchData : MOCK_BRANCH} />
+                    <BranchCompact data={branchData} />
                   </div>
                 </Card>
 
